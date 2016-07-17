@@ -103,6 +103,7 @@ WARNING
         install_binaries
         run_assets_precompile_rake_task
         generate_jekyll_site
+        optimize_jekyll_resource
       end
       best_practice_warnings
       super
@@ -118,6 +119,12 @@ private
     unless $? == 0
       error "Failed to generate site with jekyll."
     end
+  end
+  
+  # optimize resource
+  def optimize_jekyll_resource
+    puts "Optimizing jekyll site"
+    pipe("env PATH=$PATH bundle exec rake minify")
   end
 
   # the base PATH environment variable to be used
